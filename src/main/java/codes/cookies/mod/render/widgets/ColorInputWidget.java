@@ -56,15 +56,15 @@ public class ColorInputWidget extends TextFieldWidget {
 		super.renderWidget(context, mouseX, mouseY, delta);
 		TextRenderUtils.enableShadows();
 
-		context.getMatrices().push();
-		context.getMatrices().translate(0, 0, 10);
+		context.getMatrices().pushMatrix();
+		context.getMatrices().translate(0, 0);
 		context.fill(
 				this.getX() - 2,
 				this.getY() + this.getHeight() - 2,
 				this.getX() + this.getWidth(),
 				this.getY() + this.getHeight() - 1,
 				fullAlphaColor);
-		context.getMatrices().pop();
+		context.getMatrices().popMatrix();
 	}
 
 	public Color getColor() {
