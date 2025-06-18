@@ -38,7 +38,6 @@ dependencies {
 	annotationProcessor(compileOnly("org.projectlombok:lombok:1.18.36")!!)
 	compileOnly("org.jetbrains:annotations:26.0.2")
 
-	includeInJar("dev.morazzer.cookies:entities:0.2.0")
 	// Hypixel mod api fabric
 	include(modImplementation("maven.modrinth:hypixel-mod-api:1.0.1+build.1+mc1.21") {
 		isTransitive = false

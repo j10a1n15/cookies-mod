@@ -1,6 +1,5 @@
 package codes.cookies.mod;
 
-import codes.cookies.mod.api.ApiManager;
 import codes.cookies.mod.commands.CookieCommand;
 import codes.cookies.mod.commands.OpenConfigCommand;
 import codes.cookies.mod.commands.ViewForgeRecipeCommand;
@@ -87,7 +86,6 @@ public class CookiesMod implements ClientModInitializer {
 		HypixelModAPI.getInstance().subscribeToEventPacket(ClientboundLocationPacket.class);
 		MayorUtils.load();
         EventLoader.load();
-		ApiManager.initialize();
         Features.load();
         CommandManager.addCommands(new OpenConfigCommand(), new DevCommand(), new CookieCommand(), new ViewForgeRecipeCommand());
         CommandManager.addCommands(RepositoryConstants.warps.getWarps().entrySet().stream().map(WarpCommand::new).toArray(WarpCommand[]::new));
@@ -129,7 +127,7 @@ public class CookiesMod implements ClientModInitializer {
 				var message = client.keyboard.getClipboard();
 
 				if (message != null && message.startsWith("/")) {
-					CookiesUtils.getPlayer().map(player -> player.networkHandler.sendCommand(message.substring(1)));
+					CookiesUtils.getPlayer().map(player -> player.networkHandler.sendChatCommand(message.substring(1)));
 				}
 			}
 		});
