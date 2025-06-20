@@ -132,11 +132,11 @@ public class SqueakyMousematOverlay {
 	}
 
 	private void render(Screen screen, DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
-		drawContext.getMatrices().push();
+		drawContext.getMatrices().pushMatrix();
 
 		int x = this.getX(screen);
 		int y = this.getY(screen);
-		drawContext.getMatrices().translate(x, y, 50.0f);
+		drawContext.getMatrices().translate(x, y);
 		int translatedMouseX = mouseX - x;
 		int translatedMouseY = mouseY - y;
 
@@ -146,7 +146,7 @@ public class SqueakyMousematOverlay {
 				0,
 				0);
 
-		drawContext.getMatrices().pop();
+		drawContext.getMatrices().popMatrix();
 	}
 
 	private void mouseClick(Screen screen, double mouseX, double mouseY, int button) {

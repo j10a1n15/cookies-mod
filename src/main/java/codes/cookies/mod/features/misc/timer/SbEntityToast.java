@@ -2,9 +2,13 @@ package codes.cookies.mod.features.misc.timer;
 
 import java.util.function.Supplier;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.ToastManager;
 import net.minecraft.text.Text;
@@ -40,8 +44,8 @@ public class SbEntityToast implements Toast {
 
 	@Override
 	public void draw(DrawContext context, TextRenderer textRenderer, long startTime) {
-		context.drawGuiTexture(RenderLayer::getGuiTextured, TEXTURE, 0, 0, this.getWidth(), this.getHeight());
-		context.drawTexture(RenderLayer::getGuiTextured, this.data.texture, data.x, data.y, 0, 0, data.width, data.height, data.width, data.height);
+		context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, 0, 0, this.getWidth(), this.getHeight());
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, this.data.texture, data.x, data.y, 0, 0, data.width, data.height, data.width, data.height);
 		context.drawText(textRenderer, this.messageSupplier.get(),30, this.getHeight() / 2 - 4, -1, true);
 	}
 }

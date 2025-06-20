@@ -1,6 +1,8 @@
 package codes.cookies.mod.screen;
 
 import codes.cookies.mod.utils.maths.MathUtils;
+
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
@@ -89,7 +91,7 @@ public abstract class ScrollbarScreen extends CookiesScreen {
         int scrollBarX = this.scrollbarX;
         int scrollBarY = this.scrollbarY;
         drawContext.drawGuiTexture(
-				RenderLayer::getGuiTextured, SCROLLER_TEXTURE,
+				RenderPipelines.GUI_TEXTURED, SCROLLER_TEXTURE,
             scrollBarX,
             MathUtils.clamp(scrollBarY + (int) (this.scroll * this.scrollStep),
                 scrollBarY,

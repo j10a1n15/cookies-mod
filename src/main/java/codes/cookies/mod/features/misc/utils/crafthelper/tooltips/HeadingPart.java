@@ -16,6 +16,7 @@ import codes.cookies.mod.utils.minecraft.TextBuilder;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.RenderLayer;
@@ -71,12 +72,11 @@ public final class HeadingPart extends CraftHelperComponent {
 	public void drawItems(TextRenderer textRenderer, int x, int y, int width, int height, DrawContext context) {
 		RenderUtils.renderBackgroundBox(context, x, y, 26, 26, -1);
 
-		context.drawTexture(RenderLayer::getGuiTextured, SLOT, x + 4, y + 4, 0, 0, 18, 18, 18, 18);
-		context.getMatrices().push();
-		context.getMatrices().translate(0, 0, -100);
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, SLOT, x + 4, y + 4, 0, 0, 18, 18, 18, 18);
+		context.getMatrices().pushMatrix();
 		context.drawItem(stack, x + 5, y + 5, (int) System.currentTimeMillis());
 		context.drawStackOverlay(textRenderer, stack, x + 1, y + 1);
-		context.getMatrices().pop();
+		context.getMatrices().popMatrix();
 
 		int remainingWidth = width - 34;
 		int nameDelta = remainingWidth - nameWidth;

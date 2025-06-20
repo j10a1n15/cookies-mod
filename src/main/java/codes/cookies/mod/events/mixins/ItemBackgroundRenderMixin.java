@@ -53,10 +53,9 @@ public class ItemBackgroundRenderMixin implements ItemBackgroundAccessor {
         }
 		if (stack.contains(CookiesDataComponentTypes.BACKGROUND_ITEM)) {
 			final ItemStack itemStack = stack.get(CookiesDataComponentTypes.BACKGROUND_ITEM);
-			context.getMatrices().push();
-			context.getMatrices().translate(0,0,-100);
+			context.getMatrices().pushMatrix();
 			context.drawItem(itemStack, slot.x, slot.y);
-			context.getMatrices().pop();
+			context.getMatrices().popMatrix();
 			return;
 		}
 

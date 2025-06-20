@@ -7,7 +7,6 @@ import codes.cookies.mod.config.categories.dungeons.ClassColorCategory;
 import codes.cookies.mod.config.categories.dungeons.DungeonCategory;
 import codes.cookies.mod.utils.Result;
 import codes.cookies.mod.utils.accessors.GlowingEntityAccessor;
-import codes.cookies.mod.utils.cookies.CookiesBackendUtils;
 import codes.cookies.mod.utils.maths.InterpolatedInteger;
 import codes.cookies.mod.utils.maths.LinearInterpolatedInteger;
 import codes.cookies.mod.utils.skyblock.inventories.ItemBuilder;
@@ -356,9 +355,6 @@ public class DungeonPlayer {
 	 * @return Whether the player is using the mod or not.
 	 */
 	public boolean isUsingMod() {
-		if (this.uuid == null) {
-			return false;
-		}
-		return CookiesBackendUtils.usesMod(this.uuid);
+		return false;
 	}
 }

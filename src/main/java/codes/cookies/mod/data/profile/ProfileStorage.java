@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import codes.cookies.mod.api.ApiManager;
 import codes.cookies.mod.utils.skyblock.LocationUtils;
 import com.google.gson.JsonObject;
 import codes.cookies.mod.CookiesMod;

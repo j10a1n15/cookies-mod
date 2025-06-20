@@ -298,38 +298,6 @@ public class NormalComponent extends CraftHelperComponent {
 	}
 
 	@Override
-	public void drawText(
-			TextRenderer textRenderer,
-			int x,
-			int y,
-			Matrix4f matrix,
-			VertexConsumerProvider.Immediate vertexConsumers
-	) {
-		textRenderer.draw(
-				this.text.text(),
-				(float) x + this.text.x(),
-				(float) y + this.text.y(),
-				Colors.WHITE,
-				true,
-				matrix,
-				vertexConsumers,
-				TextRenderer.TextLayerType.NORMAL,
-				0,
-				15728880);
-		textRenderer.draw(
-				this.secondText.text(),
-				(float) x + this.secondText.x(),
-				(float) y + this.secondText.y(),
-				Colors.WHITE,
-				true,
-				matrix,
-				vertexConsumers,
-				TextRenderer.TextLayerType.NORMAL,
-				0,
-				15728880);
-	}
-
-	@Override
 	public int getHeight(TextRenderer textRenderer) {
 		return 10;
 	}

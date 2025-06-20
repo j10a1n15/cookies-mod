@@ -3,9 +3,6 @@ package codes.cookies.mod.render.hud.elements;
 import codes.cookies.mod.render.hud.internal.BoundingBox;
 import codes.cookies.mod.render.hud.internal.HudEditAction;
 import codes.cookies.mod.render.hud.internal.HudElementSettings;
-import codes.cookies.mod.render.hud.settings.BooleanSetting;
-import codes.cookies.mod.render.hud.settings.ColorSetting;
-import codes.cookies.mod.render.hud.settings.EnumCycleSetting;
 import codes.cookies.mod.render.hud.settings.HudElementSettingBuilder;
 import codes.cookies.mod.render.hud.settings.HudElementSettingType;
 import codes.cookies.mod.render.hud.settings.LiteralSetting;
@@ -54,12 +51,6 @@ public abstract class HudElement {
 	public abstract Text getName();
 
 	protected void addBasicSetting(HudElementSettingBuilder builder) {
-		builder.prependSetting(new EnumCycleSetting<>(
-				Text.literal("Alignment"),
-				Text.literal(""),
-				this.position::getAlignment,
-				this.position::setAlignment,
-				HudElementSettingType.METADATA));
 		builder.prependSetting(new ValueSetting(Text.literal("Scale: %.2f".formatted(this.getScale()))));
 		builder.prependSetting(new ValueSetting(Text.literal("Y: " + this.getY())));
 		builder.prependSetting(new ValueSetting(Text.literal("X: " + this.getX())));
@@ -72,20 +63,6 @@ public abstract class HudElement {
 	}
 
 	protected void addBackgroundSetting(HudElementSettingBuilder builder) {
-		builder.addSetting(new BooleanSetting(
-				Text.literal("Enable Background"),
-				Text.literal("Enables a background for the hud element"),
-				this.position::isBackground, this.position::setBackground)
-		);
-		builder.addSetting(
-				new ColorSetting(
-						Text.literal("Background Color"),
-						Text.literal("The background color for the hud element"),
-						this.position::getColorValue,
-						this.position::setColorValue,
-						true
-				)
-		);
 	}
 
 	public void buildSettings(HudElementSettingBuilder builder) {

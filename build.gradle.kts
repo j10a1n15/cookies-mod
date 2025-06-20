@@ -14,7 +14,6 @@ repositories {
 	mavenLocal()
 	maven("https://api.modrinth.com/maven")
 	maven("https://repo.hypixel.net/repository/Hypixel/")
-	maven("https://repo.cookies.codes/releases")
 	maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
 	maven("https://maven.teamresourceful.com/repository/maven-public/")
 }

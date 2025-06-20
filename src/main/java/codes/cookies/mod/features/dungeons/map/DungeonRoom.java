@@ -9,7 +9,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import codes.cookies.mod.config.categories.dungeons.DungeonCategory;
-import dev.morazzer.cookies.entities.websocket.packets.DungeonUpdateRoomSecrets;
 import codes.cookies.mod.features.dungeons.DungeonInstance;
 import codes.cookies.mod.features.dungeons.DungeonPosition;
 import codes.cookies.mod.render.Renderable;
@@ -154,11 +153,6 @@ public class DungeonRoom {
 			collected = Integer.parseInt(split[0]);
 			max = Integer.parseInt(split[1]);
 		}
-		int newMax = Math.max(this.maxSecrets, max);
-
-		if (this.maxSecrets != newMax || this.collectedSecrets != collected) {
-			this.updateSecrets(x, y, collected, newMax);
-		}
 
 		this.maxSecrets = max;
 		this.collectedSecrets = collected;
@@ -175,13 +169,6 @@ public class DungeonRoom {
 	@SuppressWarnings("SuspiciousGetterSetter")
 	public boolean isPuzzleDirty() {
 		return this.isPuzzleDirty;
-	}
-
-	/**
-	 * Sends a message to the other clients including information about secrets in the current room.
-	 */
-	private void updateSecrets(int x, int y, int collected, int newMax) {
-		this.instance.send(new DungeonUpdateRoomSecrets(x, y, collected, newMax));
 	}
 
 	/**

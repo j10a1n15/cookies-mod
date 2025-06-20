@@ -137,11 +137,10 @@ public class CraftHelperInstance {
 				lastX,
 				lastY,
 				CraftHelperTooltipPositioner.INSTANCE,
-				null);
+				null, false);
 
 		final Optional<Pair<CraftHelperComponentPart, Integer>> textUnder = getTextUnder(mouseX, mouseY, list);
 		if (textUnder.isPresent()) {
-			drawContext.getMatrices().translate(0, 0, 100);
 			this.renderOverlay(
 					textUnder.get().getLeft(),
 					textUnder.get().getRight(),
@@ -158,7 +157,7 @@ public class CraftHelperInstance {
 					tooltipFieldPart.getHoverText().stream().map(Text::asOrderedText).toList(),
 					HoveredTooltipPositioner.INSTANCE,
 					x,
-					y);
+					y, false);
 		} else if (part instanceof CraftHelperText text) {
 			final Style styleAt = MinecraftClient.getInstance().textRenderer.getTextHandler()
 					.getStyleAt(text.text(), textX);
@@ -175,7 +174,7 @@ public class CraftHelperInstance {
 					texts.stream().map(Text::asOrderedText).toList(),
 					HoveredTooltipPositioner.INSTANCE,
 					x,
-					y));
+					y, false));
 		}
 	}
 

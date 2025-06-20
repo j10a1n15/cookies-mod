@@ -130,9 +130,6 @@ public class DungeonFeatures {
 	private BiConsumer<? super String, ? super Throwable> createDungeon(DungeonType dungeonType, int floorLevel) {
 		return (string, throwable) -> {
 			final DungeonInstance dungeonInstance = new DungeonInstance(dungeonType, floorLevel, string);
-			if (this.currentInstance != null) {
-				this.currentInstance.unload();
-			}
 			this.setInstance(dungeonInstance);
 		};
 	}
@@ -176,7 +173,6 @@ public class DungeonFeatures {
 	 */
 	public void exitDungeon() {
 		if (this.currentInstance != null) {
-			this.currentInstance.unload();
 			sendDebugMessage("Removed dungeon session " + this.currentInstance.serverId());
 
 		}

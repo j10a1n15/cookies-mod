@@ -3,10 +3,8 @@ package codes.cookies.mod.commands.dev;
 import codes.cookies.mod.commands.dev.debug.HudEditScreenDebugCommand;
 import codes.cookies.mod.commands.dev.debug.PrintCorpseLocationsDebugCommand;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import codes.cookies.mod.commands.dev.debug.ApiDebug;
 import codes.cookies.mod.commands.dev.debug.GetRegionDebugCommand;
 import codes.cookies.mod.commands.dev.debug.GetRepoItemDebugCommand;
-import codes.cookies.mod.commands.dev.debug.IsUsingMod;
 import codes.cookies.mod.commands.dev.debug.LoadScreenDebugCommand;
 import codes.cookies.mod.commands.dev.debug.OpenCraftHelperPlacementScreen;
 import codes.cookies.mod.commands.dev.debug.PrintModStuffDebugCommand;
@@ -44,8 +42,6 @@ public class DebugSubCommand extends ClientCommand {
 				new GetRegionDebugCommand(),
 				new OpenCraftHelperPlacementScreen(),
 				new ProfileDataDebugCommand(),
-				new ApiDebug(),
-				new IsUsingMod(),
 				new GetRepoItemDebugCommand(),
 				new PrintModStuffDebugCommand(),
 				new HudEditScreenDebugCommand(),

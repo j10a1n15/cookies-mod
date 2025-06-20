@@ -124,7 +124,7 @@ public class ForgeRecipeScreen extends ClientSideInventory {
     }
 
     private Runnable clickedNonForge(String internalId) {
-        return () -> MinecraftClient.getInstance().player.networkHandler.sendCommand("viewrecipe %s".formatted(
+        return () -> MinecraftClient.getInstance().player.networkHandler.sendChatCommand("viewrecipe %s".formatted(
             internalId.toUpperCase()));
     }
 }

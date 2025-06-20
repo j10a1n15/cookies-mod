@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
 
+import net.minecraft.client.gl.RenderPipelines;
+
 import org.joml.Matrix4f;
 
 import net.minecraft.client.font.TextRenderer;
@@ -73,20 +75,6 @@ public class ItemTooltipComponent implements TooltipComponent {
 	}
 
 	@Override
-	public void drawText(
-			TextRenderer textRenderer,
-			int x,
-			int y,
-			Matrix4f matrix,
-			VertexConsumerProvider.Immediate vertexConsumers) {
-		int newY = y;
-		for (OrderedTextTooltipComponent orderedTextTooltipComponent : tooltip) {
-			orderedTextTooltipComponent.drawText(textRenderer, x, newY, matrix, vertexConsumers);
-			newY += orderedTextTooltipComponent.getHeight(textRenderer);
-		}
-	}
-
-	@Override
 	public void drawItems(TextRenderer textRenderer, int x, int y, int width, int height, DrawContext context) {
 		y = y + getTotalTextHeight(textRenderer);
 		RenderUtils.renderBackgroundBox(context, x,y, this.getColumnsWidth(), this.getRowsHeight(), -1);
@@ -116,7 +104,7 @@ public class ItemTooltipComponent implements TooltipComponent {
 	}
 
 	private void draw(DrawContext context, int x, int y) {
-		context.drawTexture(RenderLayer::getGuiTextured, SLOT, x, y, 0, 0, 18, 18, 18, 18);
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, SLOT, x, y, 0, 0, 18, 18, 18, 18);
 	}
 
 	private int getColumnsWidth() {

@@ -29,7 +29,7 @@ public class WarpCommand extends ClientCommand {
     public @NotNull LiteralArgumentBuilder<FabricClientCommandSource> getCommand() {
         return literal(commandName).executes(run(context -> {
             assert MinecraftClient.getInstance().player != null;
-            MinecraftClient.getInstance().player.networkHandler.sendCommand("warp " + warpName);
+            MinecraftClient.getInstance().player.networkHandler.sendChatCommand("warp " + warpName);
         }));
     }
 }

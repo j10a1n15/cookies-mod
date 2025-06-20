@@ -2,14 +2,9 @@ package codes.cookies.mod.features.dungeons;
 
 import java.util.Optional;
 
-import dev.morazzer.cookies.entities.websocket.Packet;
-import dev.morazzer.cookies.entities.websocket.packets.DungeonSyncPlayerLocation;
-import dev.morazzer.cookies.entities.websocket.packets.DungeonUpdateRoomSecrets;
 import codes.cookies.mod.events.ChatMessageEvents;
 import codes.cookies.mod.events.IslandChangeEvent;
-import codes.cookies.mod.events.WebsocketEvent;
 import codes.cookies.mod.features.dungeons.map.DungeonPhase;
-import codes.cookies.mod.features.dungeons.map.DungeonRoom;
 import codes.cookies.mod.features.dungeons.solver.puzzle.PuzzleSolver;
 import codes.cookies.mod.utils.cookies.CookiesUtils;
 import codes.cookies.mod.utils.dev.FunctionUtils;
@@ -42,10 +37,7 @@ public class DungeonListeners {
 	public static void initialize() {
 		ClientTickEvents.END_CLIENT_TICK.register(DungeonListeners::clientTick);
 		IslandChangeEvent.EVENT.register(DungeonListeners::onIslandChange);
-		Packet.onReceive(DungeonSyncPlayerLocation.class, DungeonListeners::syncPlayerLocation);
-		Packet.onReceive(DungeonUpdateRoomSecrets.class, DungeonListeners::updateRoomSecrets);
 		ChatMessageEvents.BEFORE_MODIFY.register(DungeonListeners::receiveGameMessage);
-		WebsocketEvent.CONNECT.register(DungeonListeners::connectWebsocket);
 		WorldRenderEvents.BEFORE_ENTITIES.register(DungeonListeners::beforeEntities);
 		UseBlockCallback.EVENT.register(DungeonListeners::rightClickBlock);
 	}
@@ -78,21 +70,6 @@ public class DungeonListeners {
 		}
 	}
 
-	private static void syncPlayerLocation(DungeonSyncPlayerLocation packet) {
-		getInstance().ifPresent(instance -> instance.updatePlayer(packet));
-	}
-
-	private static void updateRoomSecrets(DungeonUpdateRoomSecrets packet) {
-		getInstance().ifPresent(instance -> {
-			final DungeonRoom roomAt = instance.getDungeonMap().getRoomAt(packet.roomMapX, packet.roomMapY);
-			if (roomAt != null) {
-				if (roomAt.getMaxSecrets() < packet.maxSecrets) {
-					roomAt.setMaxSecrets(packet.maxSecrets);
-				}
-				roomAt.setCollectedSecrets(packet.collectedSecrets);
-			}
-		});
-	}
 
 	private static void receiveGameMessage(Text text, boolean isOverlay) {
 		getInstance().ifPresent(instance -> {
@@ -120,10 +97,6 @@ public class DungeonListeners {
 						.forEach(puzzleSolver -> puzzleSolver.onUnloadedChatMessage(string));
 			}
 		});
-	}
-
-	private static void connectWebsocket() {
-		getInstance().ifPresent(DungeonInstance::subscribe);
 	}
 
 	private static void beforeEntities(WorldRenderContext worldRenderContext) {

@@ -252,7 +252,7 @@ public class CookiesUtils {
 
 	public static void sendCommand(String command) {
 		Optional.ofNullable(MinecraftClient.getInstance().player)
-				.ifPresent(player -> player.networkHandler.sendCommand(command));
+				.ifPresent(player -> player.networkHandler.sendChatCommand(command));
 	}
 
 	public static BlockPos mapToBlockPos(Vec3d vec3d) {

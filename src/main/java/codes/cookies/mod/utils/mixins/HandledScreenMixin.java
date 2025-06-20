@@ -203,7 +203,7 @@ public abstract class HandledScreenMixin implements InventoryScreenAccessor {
 				list.add(tooltipComponent);
 			}
 		}
-		instance.drawTooltip(textRenderer, list, x, y, HoveredTooltipPositioner.INSTANCE, null);
+		instance.drawTooltip(textRenderer, list, x, y, HoveredTooltipPositioner.INSTANCE, null, false);
 	}
 
 	@Inject(method = "mouseScrolled", at = @At("HEAD"), cancellable = true)

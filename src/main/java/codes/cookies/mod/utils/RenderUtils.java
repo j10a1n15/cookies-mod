@@ -2,6 +2,7 @@ package codes.cookies.mod.utils;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.Camera;
@@ -42,17 +43,17 @@ public sealed interface RenderUtils permits RenderUtils.Sealed {
     }
 
     static void renderBackgroundBox(final DrawContext drawContext, int x, int y, int width, int height, int color) {
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x, y, 0, 0, 4, 4, 4, 4, 12, 12, color);
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x + 4, y, 4, 0, width - 8, 4, 4, 4, 12, 12, color);
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x + width - 4, y, 8, 0,4, 4,  4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x, y, 0, 0, 4, 4, 4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x + 4, y, 4, 0, width - 8, 4, 4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x + width - 4, y, 8, 0,4, 4,  4, 4, 12, 12, color);
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x, y + 4, 0, 4,4, height - 8,  4, 4, 12, 12, color);
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x + 4, y + 4,  4, 4,width - 8, height - 8, 4, 4, 12, 12, color);
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x + width - 4, y + 4,8, 4, 4, height - 8,  4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x, y + 4, 0, 4,4, height - 8,  4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x + 4, y + 4,  4, 4,width - 8, height - 8, 4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x + width - 4, y + 4,8, 4, 4, height - 8,  4, 4, 12, 12, color);
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x, y + height - 4, 0, 8, 4, 4, 4, 4, 12, 12, color);
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x + 4, y + height - 4, 4, 8,width - 8, 4,  4, 4, 12, 12, color);
-        drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x + width - 4, y + height - 4, 8, 8,4, 4,  4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x, y + height - 4, 0, 8, 4, 4, 4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x + 4, y + height - 4, 4, 8,width - 8, 4,  4, 4, 12, 12, color);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x + width - 4, y + height - 4, 8, 8,4, 4,  4, 4, 12, 12, color);
     }
 
     /**
@@ -135,10 +136,10 @@ public sealed interface RenderUtils permits RenderUtils.Sealed {
         if (textRenderer == null) {
             return;
         }
-        drawContext.getMatrices().push();
-        drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1);
+        drawContext.getMatrices().pushMatrix();
+        drawContext.getMatrices().scale(scaleFactor, scaleFactor);
         drawContext.drawText(textRenderer, text, (int) (x / scaleFactor), (int) (y / scaleFactor), color, shadow);
-        drawContext.getMatrices().pop();
+        drawContext.getMatrices().popMatrix();
     }
 
 
@@ -163,10 +164,10 @@ public sealed interface RenderUtils permits RenderUtils.Sealed {
         if (textRenderer == null) {
             return;
         }
-        drawContext.getMatrices().push();
-        drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1);
+        drawContext.getMatrices().pushMatrix();
+        drawContext.getMatrices().scale(scaleFactor, scaleFactor);
 		drawContext.drawText(textRenderer, text, (int) (x / scaleFactor) - textRenderer.getWidth(text) / 2, (int) (y / scaleFactor), color, false);
-        drawContext.getMatrices().pop();
+        drawContext.getMatrices().popMatrix();
     }
 
     /**
@@ -224,11 +225,11 @@ public sealed interface RenderUtils permits RenderUtils.Sealed {
 
 
 	static void drawSlotHighlightBack(DrawContext context, int slotX, int slotY) {
-		context.drawGuiTexture(RenderLayer::getGuiTextured, HandledScreen.SLOT_HIGHLIGHT_BACK_TEXTURE, slotX - 4, slotY - 4, 24, 24);
+		context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HandledScreen.SLOT_HIGHLIGHT_BACK_TEXTURE, slotX - 4, slotY - 4, 24, 24);
 	}
 
 	static void drawSlotHighlightFront(DrawContext context, int slotX, int slotY) {
-		context.drawGuiTexture(RenderLayer::getGuiTexturedOverlay, HandledScreen.SLOT_HIGHLIGHT_FRONT_TEXTURE, slotX - 4, slotY - 4, 24, 24);
+		context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HandledScreen.SLOT_HIGHLIGHT_FRONT_TEXTURE, slotX - 4, slotY - 4, 24, 24);
 	}
 
 	static Vec3d getInterpolated(Entity entity, double tickDelta) {

@@ -90,7 +90,7 @@ public class ForgeRecipeOverviewScreen extends ClientSideInventory {
     }
 
     private void openRecipeBook() {
-        MinecraftClient.getInstance().player.networkHandler.sendCommand("recipebook");
+        MinecraftClient.getInstance().player.networkHandler.sendChatCommand("recipebook");
     }
 
     private Runnable itemClicked(ForgeRecipe forgeRecipe) {

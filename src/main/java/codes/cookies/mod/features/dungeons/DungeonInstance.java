@@ -1,11 +1,6 @@
 package codes.cookies.mod.features.dungeons;
 
 import codes.cookies.mod.config.categories.dungeons.DungeonCategory;
-import dev.morazzer.cookies.entities.websocket.Packet;
-import dev.morazzer.cookies.entities.websocket.packets.DungeonJoinPacket;
-import dev.morazzer.cookies.entities.websocket.packets.DungeonLeavePacket;
-import dev.morazzer.cookies.entities.websocket.packets.DungeonSyncPlayerLocation;
-import codes.cookies.mod.api.ws.WebsocketConnection;
 import codes.cookies.mod.events.dungeon.DungeonEvents;
 import codes.cookies.mod.features.dungeons.map.DungeonMap;
 import codes.cookies.mod.features.dungeons.map.DungeonMapRenderer;
@@ -136,33 +131,10 @@ public final class DungeonInstance {
 	}
 
 	/**
-	 * Unloads various features to save memory and also lets the backend know of the disconnect.
-	 */
-	public void unload() {
-		this.send(new DungeonLeavePacket());
-		DungeonFeatures.sendDebugMessage("Unloading %s".formatted(this.serverId));
-		this.puzzleSolverInstance.unloadCurrent();
-		this.mapRenderer = null;
-	}
-
-	/**
-	 * Sends a packet to the backend if the player is not in a solo dungeon.
-	 *
-	 * @param packet The packet to send.
-	 */
-	public void send(Packet<?> packet) {
-		if (!this.relayToBackend) {
-			return;
-		}
-		WebsocketConnection.sendMessageAsync(packet);
-	}
-
-	/**
 	 * Loads the instance as the current one, this will register the map renderer and also inform the backend about
 	 * the dungeon join.
 	 */
 	public void load() {
-		this.subscribe();
 		this.mapRenderer = new DungeonMapRenderer(this);
 	}
 
@@ -219,36 +191,7 @@ public final class DungeonInstance {
 			if (dungeonPlayer.isUsingMod() && !dungeonPlayer.isSelf()) {
 				continue;
 			}
-
-			this.send(new DungeonSyncPlayerLocation(dungeonPlayer.getName(),
-					dungeonPlayer.getX(),
-					dungeonPlayer.getY(),
-					dungeonPlayer.getRotation().getTarget()));
 		}
-	}
-
-	/**
-	 * Called when the mod receives a player sync from the backend server.
-	 *
-	 * @param packet The packet with information about the player.
-	 */
-	public void updatePlayer(DungeonSyncPlayerLocation packet) {
-		final DungeonPlayer player = this.getPlayer(packet.username);
-		if (player == null) {
-			return;
-		}
-		if (player.getLastSocketUpdate() > packet.timestamp) {
-			return;
-		}
-		player.updatePositionSocket(packet.x, packet.y);
-		player.updateRotationSocket(packet.rotation);
-	}
-
-	/**
-	 * Subscribes to packets related to the current dungeon session.
-	 */
-	public void subscribe() {
-		this.send(new DungeonJoinPacket(this.serverId, this.partyLeader));
 	}
 
 	/**

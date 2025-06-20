@@ -10,7 +10,6 @@ import codes.cookies.mod.repository.constants.RepositoryConstants;
 import codes.cookies.mod.translations.TranslationKeys;
 import codes.cookies.mod.utils.SkyblockUtils;
 import codes.cookies.mod.utils.accessors.InventoryScreenAccessor;
-import codes.cookies.mod.utils.compatibility.legendarytooltips.LegendaryTooltips;
 import codes.cookies.mod.utils.skyblock.LocationUtils;
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -84,14 +83,12 @@ public class PlotPriceBreakdown {
     private void draw(Screen screen, DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
         HandledScreen<?> handledScreen = (HandledScreen<?>) screen;
 
-		LegendaryTooltips.getInstance().beforeTooltipRender(screen, drawContext);
         drawContext.drawTooltip(
             MinecraftClient.getInstance().textRenderer,
             this.lines,
             HoveredTooltipPositioner.INSTANCE,
             handledScreen.x - this.lineWidth - 32,
-            handledScreen.y + 16);
-		LegendaryTooltips.getInstance().afterTooltipRender(screen);
+            handledScreen.y + 16, false);
     }
 
     private void updateList(HandledScreen<?> handledScreen) {

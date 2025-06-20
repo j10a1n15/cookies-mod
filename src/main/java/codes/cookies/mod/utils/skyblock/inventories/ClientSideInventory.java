@@ -14,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.RenderLayer;
@@ -87,10 +88,10 @@ public class ClientSideInventory extends Screen implements InventoryScreenAccess
 		if (this.inventoryTitle != null) {
 			context.drawText(this.textRenderer, this.inventoryTitle, this.x + 8, this.y + 6, -1, false);
 		}
-		context.getMatrices().push();
+		context.getMatrices().pushMatrix();
 		int offsetX = this.x + 8;
 		int offsetY = this.y + 18;
-		context.getMatrices().translate(offsetX, offsetY, 0);
+		context.getMatrices().translate(offsetX, offsetY);
 		for (Slot slot : this.slots) {
 			this.renderSlot(context, slot, mouseX - offsetX, mouseY - offsetY);
 		}
@@ -98,7 +99,7 @@ public class ClientSideInventory extends Screen implements InventoryScreenAccess
 		for (Slot playerInventorySlot : this.playerInventorySlots) {
 			this.renderSlot(context, playerInventorySlot, mouseX - offsetX, mouseY - offsetY);
 		}
-		context.getMatrices().pop();
+		context.getMatrices().popMatrix();
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public class ClientSideInventory extends Screen implements InventoryScreenAccess
 		int i = (this.width - BACKGROUND_WIDTH) / 2;
 		int j = (this.height - this.backgroundHeight) / 2;
 		context.drawTexture(
-				RenderLayer::getGuiTextured,
+				RenderPipelines.GUI_TEXTURED,
 				TEXTURE,
 				i,
 				j,
@@ -149,7 +150,7 @@ public class ClientSideInventory extends Screen implements InventoryScreenAccess
 				256,
 				256);
 		context.drawTexture(
-				RenderLayer::getGuiTextured,
+				RenderPipelines.GUI_TEXTURED,
 				TEXTURE,
 				i,
 				j + this.rows * 18 + 17,

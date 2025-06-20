@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import codes.cookies.mod.CookiesMod;
-import codes.cookies.mod.api.ApiManager;
 import codes.cookies.mod.utils.cookies.CookiesUtils;
 import codes.cookies.mod.utils.json.JsonUtils;
 import lombok.Getter;
@@ -45,7 +44,6 @@ public class MayorUtils {
 		try (CloseableHttpClient httpClient = HttpClients.createMinimal()) {
 			final HttpGet httpGet = new HttpGet("https://api.hypixel.net/v2/resources/skyblock/election");
 			httpGet.setHeader("Accept", "application/json");
-			httpGet.setHeader("User-Agent", ApiManager.USER_AGENT);
 
 			final CloseableHttpResponse execute = httpClient.execute(httpGet);
 			if (execute.getStatusLine().getStatusCode() != 200) {

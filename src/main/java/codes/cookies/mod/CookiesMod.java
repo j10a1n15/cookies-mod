@@ -127,7 +127,7 @@ public class CookiesMod implements ClientModInitializer {
 				var message = client.keyboard.getClipboard();
 
 				if (message != null && message.startsWith("/")) {
-					CookiesUtils.getPlayer().map(player -> player.networkHandler.sendChatCommand(message.substring(1)));
+					CookiesUtils.getPlayer().ifPresent(player -> player.networkHandler.sendChatCommand(message.substring(1)));
 				}
 			}
 		});

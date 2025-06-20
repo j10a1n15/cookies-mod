@@ -72,8 +72,8 @@ public class YawPitchDisplay {
 		}
 
 
-		drawContext.getMatrices().push();
-		drawContext.getMatrices().scale(0.8f, 0.8f, 0.8f);
+		drawContext.getMatrices().pushMatrix();
+		drawContext.getMatrices().scale(0.8f, 0.8f);
 
 		//noinspection DataFlowIssue
 		int color = (((int) (opacity * 255)) << 24) | Formatting.GRAY.getColorValue() & 0xFFFFFF;
@@ -105,7 +105,7 @@ public class YawPitchDisplay {
 					crosshairY - 14,
 					Formatting.GRAY.getColorValue());
 		}
-		drawContext.getMatrices().pop();
+		drawContext.getMatrices().popMatrix();
 	}
 
 }

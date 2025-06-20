@@ -44,7 +44,7 @@ public class HudEditScreen extends Screen {
 
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		applyBlur();
+		applyBlur(context);
 		if (action == Action.NONE) {
 			HudElement element = this.currentlyHovered;
 			this.currentlyHovered = getElementUnder(mouseX, mouseY).orElse(null);
@@ -92,7 +92,7 @@ public class HudEditScreen extends Screen {
 		}
 
 		if (action == Action.EDIT && this.currentlyHovered != null) {
-			applyBlur();
+			applyBlur(context);
 			context.drawCenteredTextWithShadow(
 					this.textRenderer,
 					Text.literal("Editing ")

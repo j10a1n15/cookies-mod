@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import codes.cookies.mod.CookiesMod;
-import codes.cookies.mod.utils.cookies.CookiesBackendUtils;
 import lombok.Getter;
 import net.hypixel.modapi.HypixelModAPI;
 import net.hypixel.modapi.packet.impl.clientbound.ClientboundHelloPacket;
@@ -58,7 +57,6 @@ public class PartyUtils {
 		if (isInParty) {
 			partyLeader = clientboundPartyInfoPacket.getLeader().orElse(null);
 			partyMembers = clientboundPartyInfoPacket.getMemberMap().keySet();
-			CookiesBackendUtils.requestUUIDS(partyMembers.toArray(UUID[]::new));
 		} else {
 			partyLeader = null;
 			partyMembers = null;

@@ -40,6 +40,7 @@ import codes.cookies.mod.utils.items.CookiesDataComponentTypes;
 import codes.cookies.mod.utils.maths.MathUtils;
 import codes.cookies.mod.utils.minecraft.SoundUtils;
 
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.util.math.BlockPos;
 
 import org.lwjgl.glfw.GLFW;
@@ -209,7 +210,7 @@ public class ItemSearchScreen extends ScrollbarScreen implements InventoryScreen
 		this.renderBottomTabs(context, false, mouseX, mouseY);
 
 		context.drawTexture(
-				RenderLayer::getGuiTextured, ITEM_SEARCH_BACKGROUND,
+				RenderPipelines.GUI_TEXTURED, ITEM_SEARCH_BACKGROUND,
 				this.x,
 				this.y,
 				0,
@@ -264,7 +265,7 @@ public class ItemSearchScreen extends ScrollbarScreen implements InventoryScreen
 					§7Search operations can be §6joined §7with a §6&
 					§8§m      §r
 					§7Example: §6a:§amana§6(§82§6) §7& §aglowstone
-					§7To highlight all items that match the search press §6%s""".formatted(CookiesMod.chestSearch.getBoundKeyLocalizedText().getString())), BACKGROUND_WIDTH), HoveredTooltipPositioner.INSTANCE, mouseX, mouseY);
+					§7To highlight all items that match the search press §6%s""".formatted(CookiesMod.chestSearch.getBoundKeyLocalizedText().getString())), BACKGROUND_WIDTH), HoveredTooltipPositioner.INSTANCE, mouseX, mouseY, false);
 		}
 	}
 
@@ -489,9 +490,9 @@ public class ItemSearchScreen extends ScrollbarScreen implements InventoryScreen
 			int slotY = ((i - offset) / ITEM_ROW) * ITEM_CELL + this.y + 18;
 
 			context.drawItem(itemContext.itemStack(), slotX, slotY);
-			context.getMatrices().push();
-			context.getMatrices().scale(0.5f, 0.5f, 1f);
-			context.getMatrices().translate(15, 15, 0);
+			context.getMatrices().pushMatrix();
+			context.getMatrices().scale(0.5f, 0.5f);
+			context.getMatrices().translate(15, 15);
 			final String format;
 			if (itemContext.type() == ItemCompound.CompoundType.CRAFTABLE &&
 					itemContext.data() instanceof CraftableItemSource.Data data) {
@@ -512,7 +513,7 @@ public class ItemSearchScreen extends ScrollbarScreen implements InventoryScreen
 					(int) (slotX / 0.5f),
 					(int) (slotY / 0.5f),
 					format);
-			context.getMatrices().pop();
+			context.getMatrices().popMatrix();
 			if (mouseX > slotX && mouseY > slotY && mouseX < slotX + 16 && mouseY < slotY + 16) {
 				RenderUtils.drawSlotHighlightBack(context, slotX, slotY);
 				RenderUtils.drawSlotHighlightFront(context, slotX, slotY);
@@ -637,7 +638,7 @@ public class ItemSearchScreen extends ScrollbarScreen implements InventoryScreen
 		int tabY = this.y + this.getTabY(top);
 
 		context.drawGuiTexture(
-				RenderLayer::getGuiTextured,
+				RenderPipelines.GUI_TEXTURED,
 				identifiers[MathUtils.clamp(index, 0, identifiers.length - 1)],
 				tabX,
 				tabY,

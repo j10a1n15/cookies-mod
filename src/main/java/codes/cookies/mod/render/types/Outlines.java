@@ -118,7 +118,6 @@ public record Outlines(
 	@Override
 	public void render(WorldRenderContext context) {
 		final MatrixStack matrixStack = context.matrixStack();
-		RenderSystem.setShaderColor(1, 1, 1, 1);
 		RenderSystem.lineWidth(this.lineWidth);
 		//
 		// VertexRendering.drawBox(//

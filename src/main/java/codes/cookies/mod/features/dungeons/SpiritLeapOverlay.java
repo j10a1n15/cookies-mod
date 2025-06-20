@@ -116,8 +116,8 @@ public class SpiritLeapOverlay {
 			return;
 		}
 		drawContext.enableScissor(0, 0, 0, 0);
-		drawContext.getMatrices().push();
-		drawContext.getMatrices().translate(10000, 0, 0);
+		drawContext.getMatrices().pushMatrix();
+		drawContext.getMatrices().translate(10000, 00);
 	}
 
 	/**
@@ -128,8 +128,8 @@ public class SpiritLeapOverlay {
 			return;
 		}
 		drawContext.disableScissor();
-		drawContext.getMatrices().pop();
-		drawContext.getMatrices().push();
+		drawContext.getMatrices().popMatrix();
+		drawContext.getMatrices().pushMatrix();
 
 		int startX = drawContext.getScaledWindowWidth() / 4;
 		int endX = (drawContext.getScaledWindowWidth() / 4) * 3;
@@ -167,15 +167,15 @@ public class SpiritLeapOverlay {
 			Text name = player.slot.getStack().getName();
 			int nameWidth = MinecraftClient.getInstance().textRenderer.getWidth(name);
 
-			drawContext.getMatrices().push();
-			drawContext.getMatrices().translate(playerX + playerWidth - 10, playerY + playerHeight / 2f, 1);
+			drawContext.getMatrices().pushMatrix();
+			drawContext.getMatrices().translate(playerX + playerWidth - 10, playerY + playerHeight / 2f);
 			float maxWidth = (playerWidth / 4f) * 2.5f;
 			float scale = maxWidth / Math.max(nameWidth, 54);
-			drawContext.getMatrices().scale(scale, scale, 1);
+			drawContext.getMatrices().scale(scale, scale);
 
 			drawContext.drawText(MinecraftClient.getInstance().textRenderer, name, -nameWidth, -4, -1, true);
 
-			drawContext.getMatrices().pop();
+			drawContext.getMatrices().popMatrix();
 
 			drawContext.fill(playerX, playerY, playerEndX, playerEndY, getColor(player));
 			int size = (playerHeight / 16) * 14;
@@ -188,7 +188,7 @@ public class SpiritLeapOverlay {
 						playerY + skullOffsetY + size,
 						-1);
 			} else {
-				drawContext.getMatrices().push();
+				drawContext.getMatrices().pushMatrix();
 				drawContext.getMatrices().translate(playerX + skullOffsetY + size, playerY + skullOffsetY + size, 1);
 				drawContext.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180));
 				PlayerSkinDrawer.draw(
@@ -199,7 +199,7 @@ public class SpiritLeapOverlay {
 						size,
 						true,
 						true, -1);
-				drawContext.getMatrices().pop();
+				drawContext.getMatrices().popMatrix();
 			}
 		}
 
@@ -220,15 +220,14 @@ public class SpiritLeapOverlay {
 			return;
 		}
 
-		drawContext.getMatrices().push();
+		drawContext.getMatrices().pushMatrix();
 		final int size = 6 * DungeonMapRenderer.TOTAL_SIZE - DungeonMapRenderer.HALLWAY_SIZE;
 		final float halfSize = size / 2f;
 		drawContext.getMatrices().translate(
 				(drawContext.getScaledWindowWidth() / 2f) - halfSize,
-				drawContext.getScaledWindowHeight() / 2f * 0.8f,
-				1);
+				drawContext.getScaledWindowHeight() / 2f * 0.8f);
 		mapRenderer.render(drawContext);
-		drawContext.getMatrices().pop();
+		drawContext.getMatrices().popMatrix();
 	}
 
 	/**
